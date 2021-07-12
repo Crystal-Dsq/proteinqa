@@ -1,23 +1,3 @@
-import io
-import os
-import re
-import time
-import random
-import functools
-import itertools
-from pathlib import Path
-from collections import defaultdict
-from typing import Tuple, Dict, Iterator, Optional, Union
-
-import numpy as np
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import natsort as ns
-import tqdm.notebook as tqdm
-import scipy.stats
-import sklearn.metrics
-
 import torch
 from torch.utils.data import Dataset, Sampler
 from torch.nn import (
@@ -39,13 +19,6 @@ import torch_sparse
 import torch_scatter
 import torch_geometric as tg
 from torch_geometric.data import Data, Batch
-
-from loguru import logger
-from joblib import Parallel, delayed
-from IPython.display import display, Markdown, HTML, Video
-
-sns.set()
-
 
 # %% [markdown]
 # ## Loading as a graph
@@ -168,7 +141,7 @@ def layer_sizes_exp2(in_feats, out_feats, layers, round_pow2=False):
 
 
 # %%
-class model(Module):
+class qamodel(Module):
     def __init__(self):
         super().__init__()
 
@@ -181,7 +154,7 @@ class model(Module):
         enc_out_node_feats = 128
         enc_out_edge_feats = 64
 
-        mp_layers = 6
+        mp_layers = 2
         mp_dropout = 0.2
         mp_batch_norm = False
         mp_in_edge_feats = enc_out_edge_feats + sep_embedding_dim + rbf_num_bases
